@@ -7,16 +7,23 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 import com.example.dao.FuncionarioRepository;
 import com.example.model.Funcionario;
+import com.example.service.ProjectException;
 
+@Component
 public class FuncionarioController {
 	@Autowired
 	FuncionarioRepository funcionarioRepository;
 
 	public ResponseEntity<Funcionario> salvarFuncionario(Funcionario funcionario) {
 		try {
+			if(funcionario.getEmail().length() < 0 || funcionario.getName().length() < 0 || funcionario.getNis() < 0) {
+				throw new ProjectException("aaa");
+			}
+			
 			Funcionario _funcionario = funcionarioRepository.save(funcionario);
 			return new ResponseEntity<>(_funcionario, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -57,6 +64,7 @@ public class FuncionarioController {
 			_funcionario.setName(funcionario.getName());
 			_funcionario.setSobrenome(funcionario.getSobrenome());
 			_funcionario.setEmail(funcionario.getEmail());
+			_funcionario.setNis(funcionario.getNis());
 			return new ResponseEntity<>(funcionarioRepository.save(_funcionario), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

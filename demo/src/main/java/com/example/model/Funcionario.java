@@ -14,21 +14,15 @@ public class Funcionario {
      private String email;
      private int nis;
      
-     public Funcionario(String id, String name, String sobrenome, String email, int nis) {
-         super();
-         this.id = id;
-         this.name = name;
-         this.sobrenome = sobrenome;
-         this.email = email;
-         this.nis = nis;
+     @Override
+     public String toString() {
+       return String.format(
+           "Customer[id=%s, name='%s', sobrenome='%s', email='%s', nis='%d']",
+           id, name, sobrenome, email, nis);
      }
-
+     
 	public String getId() {
 		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getName() {
