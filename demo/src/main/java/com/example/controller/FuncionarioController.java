@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import com.example.dao.FuncionarioRepository;
 import com.example.model.Funcionario;
-import com.example.service.ProjectException;
 
 @Component
 public class FuncionarioController {
@@ -19,11 +18,7 @@ public class FuncionarioController {
 	FuncionarioRepository funcionarioRepository;
 
 	public ResponseEntity<Funcionario> salvarFuncionario(Funcionario funcionario) {
-		try {
-			if(funcionario.getEmail().length() < 0 || funcionario.getName().length() < 0 || funcionario.getNis() < 0) {
-				throw new ProjectException("aaa");
-			}
-			
+		try {			
 			Funcionario _funcionario = funcionarioRepository.save(funcionario);
 			return new ResponseEntity<>(_funcionario, HttpStatus.CREATED);
 		} catch (Exception e) {
