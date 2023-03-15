@@ -18,7 +18,7 @@ public class FuncionarioController {
 	FuncionarioRepository funcionarioRepository;
 
 	public ResponseEntity<Funcionario> salvarFuncionario(Funcionario funcionario) {
-		try {			
+		try {
 			Funcionario _funcionario = funcionarioRepository.save(funcionario);
 			return new ResponseEntity<>(_funcionario, HttpStatus.CREATED);
 		} catch (Exception e) {
